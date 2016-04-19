@@ -1,0 +1,292 @@
+% Created 2016-04-19 Di 13:25
+\documentclass[a4paper, captions=tableheading]{tufte-book}
+        \usepackage[utf8]{inputenc}
+\usepackage[ngerman, english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{footnote}
+\usepackage{minitoc}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{fancyvrb}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{rotating}
+\usepackage{multicol}
+\usepackage{pdflscape}
+\usepackage{ctable}
+\usepackage{parskip}
+\usepackage{anysize}
+\usepackage{supertabular}
+\usepackage{minted}
+\usepackage{natbib}
+\usemintedstyle{perldoc}
+\usepackage{gensymb}
+\usepackage{nicefrac}
+\usepackage{units}
+\usepackage{marginfix}
+\usepackage{breakurl}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{tabu}
+\usepackage{tabulary}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+\makeatletter
+\renewcommand{\@tufte@reset@par}{\setlength{\RaggedRightParindent}{0pt}\setlength{\JustifyingParindent}{0pt}\setlength{\parindent}{0pt}\setlength{\parskip}{0.5\baselineskip}}
+\@tufte@reset@par
+\renewcommand{\@tufte@margin@par}{\setlength{\RaggedRightParindent}{0pt}\setlength{\JustifyingParindent}{0pt}\setlength{\parindent}{0pt}\setlength{\parskip}{0.5\baselineskip}}
+\makeatother
+\geometry{left=20mm, textwidth=130mm, marginparsep=8mm, marginparwidth=40mm}
+\definecolor{darkblue}{rgb}{0,0,.5}
+\definecolor{darkgreen}{rgb}{0,.5,0}
+\definecolor{islamicgreen}{rgb}{0.0, 0.56, 0.0}
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{mintedbg}{rgb}{0.95,0.95,0.95}
+\definecolor{arsenic}{rgb}{0.23, 0.27, 0.29}
+\definecolor{prussianblue}{rgb}{0.0, 0.19, 0.33}
+\definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{cobalt}{rgb}{0.0, 0.28, 0.67}
+\definecolor{moonstoneblue}{rgb}{0.45, 0.66, 0.76}
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+\hypersetup{colorlinks=true, breaklinks=true, linkcolor=coolblack, anchorcolor=blue, citecolor=islamicgreen, filecolor=blue,  menucolor=blue,  urlcolor=violet}
+\renewcommand\thefootnote{\textcolor{darkred}{\arabic{footnote}}}
+\renewcommand{\theFancyVerbLine}{\sffamily\textcolor[rgb]{0.7,0.7,0.7}{\tiny\arabic{FancyVerbLine}}}
+\setcounter{secnumdepth}{3}
+\titleformat{\section}{\normalfont\Large\itshape\color{black}} {\llap{\colorbox{coolblack}{\parbox{1.5cm}{\hfill\color{white}\thesection}}}}{1em}{}[]
+\titleformat{\subsection}{\normalfont\large\itshape\color{black}} {\llap{\colorbox{aliceblue}{\parbox{1.5cm}{\hfill\color{coolblack}\thesubsection}}}}{1em}{}[]
+\titleformat{\subsubsection}{\normalfont\large\itshape\color{black}} {\llap{\colorbox{aliceblue}{\parbox{1.5cm}{\hfill\color{coolblack}\thesubsubsection}}}}{1em}{}[]
+\setcounter{secnumdepth}{3}
+\author{Göran Kirchner}
+\date{\today}
+\title{Notes on R}
+\hypersetup{
+ pdfauthor={Göran Kirchner},
+ pdftitle={Notes on R},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.5.1 (Org mode 8.3.1)},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\chapter{Packages}
+\label{sec:orgheadline1}
+
+\chapter{Visualization}
+\label{sec:orgheadline12}
+
+\section{Data}
+\label{sec:orgheadline2}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+head(movies)
+\end{minted}
+
+\begin{center}
+\begin{tabular}{lrlrrrll}
+\toprule
+Title & Year & Rating & Runtime & Critic.Score & Box.Office & Awards & International\\
+\midrule
+The Whole Nine Yards & 2000 & R & 98 & 45 & 57.3 & FALSE & FALSE\\
+Cirque du Soleil: Journey of Man & 2000 & G & 39 & 45 & 13.4 & TRUE & FALSE\\
+Gladiator & 2000 & R & 155 & 76 & 187.3 & TRUE & TRUE\\
+Dinosaur & 2000 & PG & 82 & 65 & 135.6 & TRUE & FALSE\\
+Big Momma's House & 2000 & PG-13 & 99 & 30 & 0.5 & TRUE & TRUE\\
+Gone in Sixty Seconds & 2000 & PG-13 & 118 & 24 & 101 & TRUE & FALSE\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{One Categorical Variable}
+\label{sec:orgheadline6}
+
+\subsection{base}
+\label{sec:orgheadline3}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+plot(
+	x = movies$Rating,
+	main = "Count of Movies by Rating",
+	xlab = "Rating",
+	ylab = "Count of Movies")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-base-01.pdf}
+
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+dotchart(
+	x = table(movies$Rating),
+	pch = 16,
+	main = "Count of Movies by Rating",
+	xlab = "Count of Movies",
+	ylab = "Rating")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-base-02.pdf}
+
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+pie(
+	x = table(movies$Awards),
+	clockwise = TRUE,
+	main = "Proportion of Movies that Won Awards")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-base-03.pdf}
+
+\subsection{lattice}
+\label{sec:orgheadline4}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(lattice)
+# Create frequency table of ratings
+movies <- read.csv("data/movies.csv")
+table <- table(movies$Rating)
+ratings <- as.data.frame(table)
+names(ratings)[1] <- "Rating"
+names(ratings)[2] <- "Count"
+print(ratings)
+\end{minted}
+
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Rating & Count\\
+\midrule
+G & 93\\
+PG & 497\\
+PG-13 & 1225\\
+R & 1423\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(lattice)
+# Create frequency table of ratings
+movies <- read.csv("data/movies.csv")
+table <- table(movies$Rating)
+ratings <- as.data.frame(table)
+names(ratings)[1] <- "Rating"
+names(ratings)[2] <- "Count"
+barchart(
+	x = Count ~ Rating,
+	data = ratings,
+	main = "Count of Movies by Rating",
+	xlab = "Rating")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-lattice-01.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(lattice)
+# Create frequency table of ratings
+movies <- read.csv("data/movies.csv")
+table <- table(movies$Rating)
+ratings <- as.data.frame(table)
+names(ratings)[1] <- "Rating"
+names(ratings)[2] <- "Count"
+dotplot(
+	x = Rating ~ Count,
+	data = ratings,
+	main = "Count of Movies by Rating",
+	ylab = "Rating")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-lattice-02.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(lattice)
+# Create frequency table of ratings
+movies <- read.csv("data/movies.csv")
+table <- table(movies$Rating)
+ratings <- as.data.frame(table)
+names(ratings)[1] <- "Rating"
+names(ratings)[2] <- "Count"
+histogram(
+	x = ~Rating,
+	data = movies,
+	main = "Percent of Movies by Rating")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-lattice-03.pdf}
+
+\subsection{ggplot2}
+\label{sec:orgheadline5}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(ggplot2)
+movies <- read.csv("data/movies.csv")
+ggplot(
+		data = movies,
+		aes(x = Rating)) +
+		geom_bar() +
+		ggtitle("Count of Movies by Rating")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-ggplot2-01.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(ggplot2)
+library(lattice)
+# Create frequency table of ratings
+movies <- read.csv("data/movies.csv")
+table <- table(movies$Rating)
+ratings <- as.data.frame(table)
+names(ratings)[1] <- "Rating"
+names(ratings)[2] <- "Count"
+ggplot(
+	data = ratings,
+	aes(x = Rating, y = Count)) +
+	geom_point() +
+	coord_flip() +
+	ggtitle("Count of Movies by Rating")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-ggplot2-02.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(ggplot2)
+movies <- read.csv("data/movies.csv")
+ggplot(
+	data = movies,
+	aes(x = "", fill = Awards)) +
+	geom_bar() +
+	coord_polar(theta = "y") +
+	ggtitle("Proportion of Movies that Won Awards") +
+	ylab("")
+\end{minted}
+
+\includegraphics[height=6cm]{img/1-cat-ggplot2-03.pdf}
+
+
+\section{One Numeric Variable}
+\label{sec:orgheadline7}
+
+\section{Two Categorical Variables}
+\label{sec:orgheadline8}
+
+\section{Two Numeric Variables}
+\label{sec:orgheadline9}
+
+\section{Both a Categorical and a Numeric Variable}
+\label{sec:orgheadline10}
+
+\section{Moving Beyond}
+\label{sec:orgheadline11}
+\end{document}

@@ -1,0 +1,209 @@
+#+Title: Notes on R
+#+Author: Göran Kirchner
+#+Language: en
+
+#+Startup: showall
+#+Options: toc:nil tex:t H:3 num:3 todo:t pri:nil tags:t ^:nil ':t
+
+#+Property: header-args :cache yes
+#+PROPERTY: header-args :exports both
+#+PROPERTY: header-args :tangle yes
+# #+PROPERTY: session *R*
+# #+PROPERTY: results graphic
+
+#+Include: preamble.org
+
+* Packages
+
+* Visualization
+
+** Data
+
+#+begin_src R :noweb-ref movies :exports none
+movies <- read.csv("data/movies.csv")
+#+end_src
+
+#+RESULTS:
+
+#+begin_src R :noweb yes :colnames yes :exports both
+<<movies>>
+head(movies)
+#+end_src
+
+#+Attr_Latex: :booktabs t :placement \footnotesize
+#+RESULTS[1820099fe5b63a2e8d93113bbca8ad7afd7cac73]:
+| Title                            | Year | Rating | Runtime | Critic.Score | Box.Office | Awards | International |
+|----------------------------------+------+--------+---------+--------------+------------+--------+---------------|
+| The Whole Nine Yards             | 2000 | R      |      98 |           45 |       57.3 | FALSE  | FALSE         |
+| Cirque du Soleil: Journey of Man | 2000 | G      |      39 |           45 |       13.4 | TRUE   | FALSE         |
+| Gladiator                        | 2000 | R      |     155 |           76 |      187.3 | TRUE   | TRUE          |
+| Dinosaur                         | 2000 | PG     |      82 |           65 |      135.6 | TRUE   | FALSE         |
+| Big Momma's House                | 2000 | PG-13  |      99 |           30 |        0.5 | TRUE   | TRUE          |
+| Gone in Sixty Seconds            | 2000 | PG-13  |     118 |           24 |        101 | TRUE   | FALSE         |
+
+** One Categorical Variable
+
+*** base
+
+#+begin_src R :noweb yes :file img/1-cat-base-01.pdf :results output graphics :exports both
+<<movies>>
+plot(
+  x = movies$Rating,
+  main = "Count of Movies by Rating",
+  xlab = "Rating",
+  ylab = "Count of Movies")
+#+end_src
+
+#+Attr_latex: :height 6cm
+#+RESULTS[49d10832fe9bdd6fd0cf28d7c158e0fed4b355d1]:
+[[file:img/1-cat-base-01.pdf]]
+
+
+#+begin_src R :noweb yes :file img/1-cat-base-02.pdf :results output graphics :exports both
+<<movies>>
+dotchart(
+  x = table(movies$Rating),
+  pch = 16,
+  main = "Count of Movies by Rating",
+  xlab = "Count of Movies",
+  ylab = "Rating")
+#+end_src
+
+#+attr_latex: :height 6cm
+#+RESULTS[b3b07ff2832c9ff61c627dd54e1714a7a0845a6b]:
+[[file:img/1-cat-base-02.pdf]]
+
+
+#+begin_src R :noweb yes :file img/1-cat-base-03.pdf :results output graphics :exports both
+<<movies>>
+pie(
+  x = table(movies$Awards),
+  clockwise = TRUE,
+  main = "Proportion of Movies that Won Awards")
+#+end_src
+
+#+attr_latex: :height 6cm
+#+RESULTS[e3b67c717e56708301bfdfeb409fddf42a3f88df]:
+[[file:img/1-cat-base-03.pdf]]
+
+*** lattice
+
+#+begin_src R :noweb yes :noweb-ref ratings-l :exports none
+library(lattice)
+# Create frequency table of ratings
+<<movies>>
+table <- table(movies$Rating)
+ratings <- as.data.frame(table)
+names(ratings)[1] <- "Rating"
+names(ratings)[2] <- "Count"
+#+end_src
+
+#+begin_src R :noweb yes :colnames yes :exports both
+<<ratings-l>>
+print(ratings)
+#+end_src
+
+#+Attr_Latex: :booktabs t :placement \footnotesize
+#+RESULTS:
+| Rating | Count |
+|--------+-------|
+| G      |    93 |
+| PG     |   497 |
+| PG-13  |  1225 |
+| R      |  1423 |
+
+#+begin_src R :noweb yes :file img/1-cat-lattice-01.pdf :results output graphics :exports both
+<<ratings-l>>
+barchart(
+  x = Count ~ Rating,
+  data = ratings,
+  main = "Count of Movies by Rating",
+  xlab = "Rating")
+#+end_src
+
+#+attr_latex: :height 6cm
+#+RESULTS:
+[[file:img/1-cat-lattice-01.pdf]]
+
+#+begin_src R :noweb yes :file img/1-cat-lattice-02.pdf :results output graphics :exports both
+<<ratings-l>>
+dotplot(
+  x = Rating ~ Count,
+  data = ratings,
+  main = "Count of Movies by Rating",
+  ylab = "Rating")
+#+end_src
+
+#+attr_latex: :height 6cm
+#+RESULTS:
+[[file:img/1-cat-lattice-02.pdf]]
+
+#+begin_src R :noweb yes :file img/1-cat-lattice-03.pdf :results output graphics :exports both
+<<ratings-l>>
+histogram(
+  x = ~Rating,
+  data = movies,
+  main = "Percent of Movies by Rating")
+#+end_src
+
+#+attr_latex: :height 6cm
+#+RESULTS:
+[[file:img/1-cat-lattice-03.pdf]]
+
+*** ggplot2
+
+#+begin_src R :noweb yes :file img/1-cat-ggplot2-01.pdf :results output graphics :exports both
+library(ggplot2)
+<<movies>>
+ggplot(
+    data = movies,
+    aes(x = Rating)) +
+    geom_bar() +
+    ggtitle("Count of Movies by Rating")
+#+end_src
+
+#+Attr_latex: :height 6cm
+#+RESULTS:
+[[file:img/1-cat-ggplot2-01.pdf]]
+
+#+begin_src R :noweb yes :file img/1-cat-ggplot2-02.pdf :results output graphics :exports both
+library(ggplot2)
+<<ratings-l>>
+ggplot(
+  data = ratings,
+  aes(x = Rating, y = Count)) +
+  geom_point() +
+  coord_flip() +
+  ggtitle("Count of Movies by Rating")
+#+end_src
+
+#+Attr_latex: :height 6cm
+#+RESULTS:
+[[file:img/1-cat-ggplot2-02.pdf]]
+
+#+begin_src R :noweb yes :file img/1-cat-ggplot2-03.pdf :results output graphics :exports both
+library(ggplot2)
+<<movies>>
+ggplot(
+  data = movies,
+  aes(x = "", fill = Awards)) +
+  geom_bar() +
+  coord_polar(theta = "y") +
+  ggtitle("Proportion of Movies that Won Awards") +
+  ylab("")
+#+end_src
+
+#+Attr_latex: :height 6cm
+#+RESULTS:
+[[file:img/1-cat-ggplot2-03.pdf]]
+
+
+** One Numeric Variable
+
+** Two Categorical Variables
+
+** Two Numeric Variables
+
+** Both a Categorical and a Numeric Variable
+
+** Moving Beyond
