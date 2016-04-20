@@ -1,4 +1,4 @@
-% Created 2016-04-19 Di 13:25
+% Created 2016-04-20 Mi 15:54
 \documentclass[a4paper, captions=tableheading]{tufte-book}
         \usepackage[utf8]{inputenc}
 \usepackage[ngerman, english]{babel}
@@ -83,7 +83,7 @@
 \label{sec:orgheadline1}
 
 \chapter{Visualization}
-\label{sec:orgheadline12}
+\label{sec:orgheadline15}
 
 \section{Data}
 \label{sec:orgheadline2}
@@ -276,17 +276,173 @@ ggplot(
 
 
 \section{One Numeric Variable}
-\label{sec:orgheadline7}
-
-\section{Two Categorical Variables}
-\label{sec:orgheadline8}
-
-\section{Two Numeric Variables}
-\label{sec:orgheadline9}
-
-\section{Both a Categorical and a Numeric Variable}
 \label{sec:orgheadline10}
 
-\section{Moving Beyond}
+
+
+\subsection{base}
+\label{sec:orgheadline7}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+plot(
+		x = movies$Runtime,
+		y = jitter(rep(0, nrow(movies))),
+		main = "Distribution of Movie Runtimes",
+		xlab = "Runtime (minutes)",
+		ylab = "",
+		yaxt = "n",
+		pch = 16,
+		col = rgb(0, 0, 0.3, 0.2))
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-base-01.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+boxplot(
+		x = movies$Runtime,
+		horizontal = TRUE,
+		main = "Distribution of Movie Runtimes",
+		xlab = "Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-base-02.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+hist(
+		x = movies$Runtime,
+		breaks = 30,
+		main = "Distribution of Movie Runtimes",
+		xlab = "Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-base-03.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+plot(
+		x = density(movies$Runtime),
+		main = "Distribution of Movie Runtimes",
+		xlab = "Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-base-04.pdf}
+
+\subsection{lattice}
+\label{sec:orgheadline8}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+library(lattice)
+bwplot(
+		x = ~Runtime,
+		data = movies,
+		main = "Distribution of Movie Runtimes",
+		xlab = "Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-lattice-02.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+library(lattice)
+histogram(
+		x = ~Runtime,
+		data = movies,
+		main = "Distribution of Movie Runtimes",
+		xlab = "Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-lattice-03.pdf}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+movies <- read.csv("data/movies.csv")
+library(lattice)
+densityplot(
+		x = ~Runtime,
+		data = movies,
+		main = "Distribution of Movie Runtimes",
+		xlab = "Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-lattice-04.pdf}
+
+\subsection{ggplot2}
+\label{sec:orgheadline9}
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(ggplot2)
+movies <- read.csv("data/movies.csv")
+ggplot(
+		data = movies,
+		aes(x = Runtime, stat = "count")) +
+		geom_dotplot(
+				binwidth = 1,
+				stackdir = "center") +
+		ggtitle("Distribution of Movie Runtimes") +
+		xlab("Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-01.pdf}
+
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(ggplot2)
+movies <- read.csv("data/movies.csv")
+ggplot(
+		data = movies,
+		aes(x = Runtime, y = Runtime)) +
+		geom_boxplot() +
+		coord_flip() +
+		ggtitle("Distribution of Movie Runtimes") +
+		xlab("") +
+		ylab("Runtime (minutes)") +
+		theme(
+				axis.text.y = element_blank(),
+				axis.ticks.y = element_blank())
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-02.pdf}
+
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(ggplot2)
+movies <- read.csv("data/movies.csv")
+ggplot(
+		data = movies,
+		aes(x = Runtime)) +
+		geom_histogram(binwidth = 10) +
+		ggtitle("Distribution of Movie Runtimes") +
+		xlab("Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-03.pdf}
+
+
+\begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
+library(ggplot2)
+movies <- read.csv("data/movies.csv")
+ggplot(
+		data = movies,
+		aes(x = Runtime)) +
+		geom_density() +
+		ggtitle("Distribution of Movie Runtimes") +
+		xlab("Runtime (minutes)")
+\end{minted}
+
+\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-04.pdf}
+
+\section{Two Categorical Variables}
 \label{sec:orgheadline11}
+
+\section{Two Numeric Variables}
+\label{sec:orgheadline12}
+
+\section{Both a Categorical and a Numeric Variable}
+\label{sec:orgheadline13}
+
+\section{Moving Beyond}
+\label{sec:orgheadline14}
 \end{document}

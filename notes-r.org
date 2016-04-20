@@ -200,6 +200,170 @@ ggplot(
 
 ** One Numeric Variable
 
+
+
+*** base
+
+#+begin_src R :noweb yes :file img/1-num-base-01.pdf :results output graphics :exports both
+<<movies>>
+plot(
+    x = movies$Runtime,
+    y = jitter(rep(0, nrow(movies))),
+    main = "Distribution of Movie Runtimes",
+    xlab = "Runtime (minutes)",
+    ylab = "",
+    yaxt = "n",
+    pch = 16,
+    col = rgb(0, 0, 0.3, 0.2))
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-base-01.pdf]]
+
+#+begin_src R :noweb yes :file img/1-num-base-02.pdf :results output graphics :exports both
+<<movies>>
+boxplot(
+    x = movies$Runtime,
+    horizontal = TRUE,
+    main = "Distribution of Movie Runtimes",
+    xlab = "Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-base-02.pdf]]
+
+#+begin_src R :noweb yes :file img/1-num-base-03.pdf :results output graphics :exports both
+<<movies>>
+hist(
+    x = movies$Runtime,
+    breaks = 30,
+    main = "Distribution of Movie Runtimes",
+    xlab = "Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-base-03.pdf]]
+
+#+begin_src R :noweb yes :file img/1-num-base-04.pdf :results output graphics :exports both
+<<movies>>
+plot(
+    x = density(movies$Runtime),
+    main = "Distribution of Movie Runtimes",
+    xlab = "Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-base-04.pdf]]
+
+*** lattice
+
+#+begin_src R :noweb yes :file img/1-num-lattice-02.pdf :results output graphics :exports both
+<<movies>>
+library(lattice)
+bwplot(
+    x = ~Runtime,
+    data = movies,
+    main = "Distribution of Movie Runtimes",
+    xlab = "Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-lattice-02.pdf]]
+
+#+begin_src R :noweb yes :file img/1-num-lattice-03.pdf :results output graphics :exports both
+<<movies>>
+library(lattice)
+histogram(
+    x = ~Runtime,
+    data = movies,
+    main = "Distribution of Movie Runtimes",
+    xlab = "Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-lattice-03.pdf]]
+
+#+begin_src R :noweb yes :file img/1-num-lattice-04.pdf :results output graphics :exports both
+<<movies>>
+library(lattice)
+densityplot(
+    x = ~Runtime,
+    data = movies,
+    main = "Distribution of Movie Runtimes",
+    xlab = "Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-lattice-04.pdf]]
+
+*** ggplot2
+
+#+begin_src R :noweb yes :file img/1-num-ggplot2-01.pdf :results output graphics :exports both
+library(ggplot2)
+<<movies>>
+ggplot(
+    data = movies,
+    aes(x = Runtime, stat = "count")) +
+    geom_dotplot(
+        binwidth = 1,
+        stackdir = "center") +
+    ggtitle("Distribution of Movie Runtimes") +
+    xlab("Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-ggplot2-01.pdf]]
+
+
+#+begin_src R :noweb yes :file img/1-num-ggplot2-02.pdf :results output graphics :exports both
+library(ggplot2)
+<<movies>>
+ggplot(
+    data = movies,
+    aes(x = Runtime, y = Runtime)) +
+    geom_boxplot() +
+    coord_flip() +
+    ggtitle("Distribution of Movie Runtimes") +
+    xlab("") +
+    ylab("Runtime (minutes)") +
+    theme(
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-ggplot2-02.pdf]]
+
+
+#+begin_src R :noweb yes :file img/1-num-ggplot2-03.pdf :results output graphics :exports both
+library(ggplot2)
+<<movies>>
+ggplot(
+    data = movies,
+    aes(x = Runtime)) +
+    geom_histogram(binwidth = 10) +
+    ggtitle("Distribution of Movie Runtimes") +
+    xlab("Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-ggplot2-03.pdf]]
+
+
+#+begin_src R :noweb yes :file img/1-num-ggplot2-04.pdf :results output graphics :exports both
+library(ggplot2)
+<<movies>>
+ggplot(
+    data = movies,
+    aes(x = Runtime)) +
+    geom_density() +
+    ggtitle("Distribution of Movie Runtimes") +
+    xlab("Runtime (minutes)")
+#+end_src
+
+#+RESULTS:
+[[file:img/1-num-ggplot2-04.pdf]]
+
 ** Two Categorical Variables
 
 ** Two Numeric Variables
