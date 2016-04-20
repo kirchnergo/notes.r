@@ -45,7 +45,7 @@ head(movies)
 
 *** base
 
-#+begin_src R :noweb yes :file img/1-cat-base-01.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-base-01.png :results output graphics :exports both
 <<movies>>
 plot(
   x = movies$Rating,
@@ -56,10 +56,10 @@ plot(
 
 #+Attr_latex: :height 6cm
 #+RESULTS[49d10832fe9bdd6fd0cf28d7c158e0fed4b355d1]:
-[[file:img/1-cat-base-01.pdf]]
+[[file:img/1-cat-base-01.png]]
 
 
-#+begin_src R :noweb yes :file img/1-cat-base-02.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-base-02.png :results output graphics :exports both
 <<movies>>
 dotchart(
   x = table(movies$Rating),
@@ -71,10 +71,10 @@ dotchart(
 
 #+attr_latex: :height 6cm
 #+RESULTS[b3b07ff2832c9ff61c627dd54e1714a7a0845a6b]:
-[[file:img/1-cat-base-02.pdf]]
+[[file:img/1-cat-base-02.png]]
 
 
-#+begin_src R :noweb yes :file img/1-cat-base-03.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-base-03.png :results output graphics :exports both
 <<movies>>
 pie(
   x = table(movies$Awards),
@@ -84,7 +84,7 @@ pie(
 
 #+attr_latex: :height 6cm
 #+RESULTS[e3b67c717e56708301bfdfeb409fddf42a3f88df]:
-[[file:img/1-cat-base-03.pdf]]
+[[file:img/1-cat-base-03.png]]
 
 *** lattice
 
@@ -112,7 +112,7 @@ print(ratings)
 | PG-13  |  1225 |
 | R      |  1423 |
 
-#+begin_src R :noweb yes :file img/1-cat-lattice-01.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-lattice-01.png :results output graphics :exports both
 <<ratings-l>>
 barchart(
   x = Count ~ Rating,
@@ -123,9 +123,9 @@ barchart(
 
 #+attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-cat-lattice-01.pdf]]
+[[file:img/1-cat-lattice-01.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-lattice-02.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-lattice-02.png :results output graphics :exports both
 <<ratings-l>>
 dotplot(
   x = Rating ~ Count,
@@ -136,9 +136,9 @@ dotplot(
 
 #+attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-cat-lattice-02.pdf]]
+[[file:img/1-cat-lattice-02.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-lattice-03.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-lattice-03.png :results output graphics :exports both
 <<ratings-l>>
 histogram(
   x = ~Rating,
@@ -148,11 +148,11 @@ histogram(
 
 #+attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-cat-lattice-03.pdf]]
+[[file:img/1-cat-lattice-03.png]]
 
 *** ggplot2
 
-#+begin_src R :noweb yes :file img/1-cat-ggplot2-01.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-ggplot2-01.png :results output graphics :exports both
 library(ggplot2)
 <<movies>>
 ggplot(
@@ -164,9 +164,9 @@ ggplot(
 
 #+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-cat-ggplot2-01.pdf]]
+[[file:img/1-cat-ggplot2-01.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-ggplot2-02.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-ggplot2-02.png :results output graphics :exports both
 library(ggplot2)
 <<ratings-l>>
 ggplot(
@@ -179,9 +179,9 @@ ggplot(
 
 #+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-cat-ggplot2-02.pdf]]
+[[file:img/1-cat-ggplot2-02.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-ggplot2-03.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-cat-ggplot2-03.png :results output graphics :exports both
 library(ggplot2)
 <<movies>>
 ggplot(
@@ -195,16 +195,13 @@ ggplot(
 
 #+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-cat-ggplot2-03.pdf]]
-
+[[file:img/1-cat-ggplot2-03.png]]
 
 ** One Numeric Variable
 
-
-
 *** base
 
-#+begin_src R :noweb yes :file img/1-num-base-01.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-base-01.png :results output graphics :exports both
 <<movies>>
 plot(
     x = movies$Runtime,
@@ -217,10 +214,11 @@ plot(
     col = rgb(0, 0, 0.3, 0.2))
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-base-01.pdf]]
+[[file:img/1-num-base-01.png]]
 
-#+begin_src R :noweb yes :file img/1-num-base-02.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-base-02.png :results output graphics :exports both
 <<movies>>
 boxplot(
     x = movies$Runtime,
@@ -229,10 +227,11 @@ boxplot(
     xlab = "Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-base-02.pdf]]
+[[file:img/1-num-base-02.png]]
 
-#+begin_src R :noweb yes :file img/1-num-base-03.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-base-03.png :results output graphics :exports both
 <<movies>>
 hist(
     x = movies$Runtime,
@@ -241,10 +240,11 @@ hist(
     xlab = "Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-base-03.pdf]]
+[[file:img/1-num-base-03.png]]
 
-#+begin_src R :noweb yes :file img/1-num-base-04.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-base-04.png :results output graphics :exports both
 <<movies>>
 plot(
     x = density(movies$Runtime),
@@ -252,12 +252,13 @@ plot(
     xlab = "Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-base-04.pdf]]
+[[file:img/1-num-base-04.png]]
 
 *** lattice
 
-#+begin_src R :noweb yes :file img/1-num-lattice-02.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-lattice-02.png :results output graphics :exports both
 <<movies>>
 library(lattice)
 bwplot(
@@ -267,10 +268,11 @@ bwplot(
     xlab = "Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-lattice-02.pdf]]
+[[file:img/1-num-lattice-02.png]]
 
-#+begin_src R :noweb yes :file img/1-num-lattice-03.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-lattice-03.png :results output graphics :exports both
 <<movies>>
 library(lattice)
 histogram(
@@ -280,10 +282,11 @@ histogram(
     xlab = "Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-lattice-03.pdf]]
+[[file:img/1-num-lattice-03.png]]
 
-#+begin_src R :noweb yes :file img/1-num-lattice-04.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-lattice-04.png :results output graphics :exports both
 <<movies>>
 library(lattice)
 densityplot(
@@ -293,12 +296,13 @@ densityplot(
     xlab = "Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-lattice-04.pdf]]
+[[file:img/1-num-lattice-04.png]]
 
 *** ggplot2
 
-#+begin_src R :noweb yes :file img/1-num-ggplot2-01.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-ggplot2-01.png :results output graphics :exports both
 library(ggplot2)
 <<movies>>
 ggplot(
@@ -311,11 +315,12 @@ ggplot(
     xlab("Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-ggplot2-01.pdf]]
+[[file:img/1-num-ggplot2-01.png]]
 
 
-#+begin_src R :noweb yes :file img/1-num-ggplot2-02.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-ggplot2-02.png :results output graphics :exports both
 library(ggplot2)
 <<movies>>
 ggplot(
@@ -331,11 +336,12 @@ ggplot(
         axis.ticks.y = element_blank())
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-ggplot2-02.pdf]]
+[[file:img/1-num-ggplot2-02.png]]
 
 
-#+begin_src R :noweb yes :file img/1-num-ggplot2-03.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-ggplot2-03.png :results output graphics :exports both
 library(ggplot2)
 <<movies>>
 ggplot(
@@ -346,11 +352,12 @@ ggplot(
     xlab("Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-ggplot2-03.pdf]]
+[[file:img/1-num-ggplot2-03.png]]
 
 
-#+begin_src R :noweb yes :file img/1-num-ggplot2-04.pdf :results output graphics :exports both
+#+begin_src R :noweb yes :file img/1-num-ggplot2-04.png :results output graphics :exports both
 library(ggplot2)
 <<movies>>
 ggplot(
@@ -361,8 +368,9 @@ ggplot(
     xlab("Runtime (minutes)")
 #+end_src
 
+#+Attr_latex: :height 6cm
 #+RESULTS:
-[[file:img/1-num-ggplot2-04.pdf]]
+[[file:img/1-num-ggplot2-04.png]]
 
 ** Two Categorical Variables
 

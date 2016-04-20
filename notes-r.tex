@@ -1,4 +1,4 @@
-% Created 2016-04-20 Mi 15:54
+% Created 2016-04-20 Mi 20:17
 \documentclass[a4paper, captions=tableheading]{tufte-book}
         \usepackage[utf8]{inputenc}
 \usepackage[ngerman, english]{babel}
@@ -123,7 +123,7 @@ plot(
 	ylab = "Count of Movies")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-base-01.pdf}
+\includegraphics[height=6cm]{img/1-cat-base-01.png}
 
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
@@ -136,7 +136,7 @@ dotchart(
 	ylab = "Rating")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-base-02.pdf}
+\includegraphics[height=6cm]{img/1-cat-base-02.png}
 
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
@@ -147,7 +147,7 @@ pie(
 	main = "Proportion of Movies that Won Awards")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-base-03.pdf}
+\includegraphics[height=6cm]{img/1-cat-base-03.png}
 
 \subsection{lattice}
 \label{sec:orgheadline4}
@@ -191,7 +191,7 @@ barchart(
 	xlab = "Rating")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-lattice-01.pdf}
+\includegraphics[height=6cm]{img/1-cat-lattice-01.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 library(lattice)
@@ -208,7 +208,7 @@ dotplot(
 	ylab = "Rating")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-lattice-02.pdf}
+\includegraphics[height=6cm]{img/1-cat-lattice-02.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 library(lattice)
@@ -224,7 +224,7 @@ histogram(
 	main = "Percent of Movies by Rating")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-lattice-03.pdf}
+\includegraphics[height=6cm]{img/1-cat-lattice-03.png}
 
 \subsection{ggplot2}
 \label{sec:orgheadline5}
@@ -239,7 +239,7 @@ ggplot(
 		ggtitle("Count of Movies by Rating")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-ggplot2-01.pdf}
+\includegraphics[height=6cm]{img/1-cat-ggplot2-01.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 library(ggplot2)
@@ -258,7 +258,7 @@ ggplot(
 	ggtitle("Count of Movies by Rating")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-ggplot2-02.pdf}
+\includegraphics[height=6cm]{img/1-cat-ggplot2-02.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 library(ggplot2)
@@ -272,13 +272,10 @@ ggplot(
 	ylab("")
 \end{minted}
 
-\includegraphics[height=6cm]{img/1-cat-ggplot2-03.pdf}
-
+\includegraphics[height=6cm]{img/1-cat-ggplot2-03.png}
 
 \section{One Numeric Variable}
 \label{sec:orgheadline10}
-
-
 
 \subsection{base}
 \label{sec:orgheadline7}
@@ -296,7 +293,7 @@ plot(
 		col = rgb(0, 0, 0.3, 0.2))
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-base-01.pdf}
+\includegraphics[height=6cm]{img/1-num-base-01.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 movies <- read.csv("data/movies.csv")
@@ -307,7 +304,7 @@ boxplot(
 		xlab = "Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-base-02.pdf}
+\includegraphics[height=6cm]{img/1-num-base-02.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 movies <- read.csv("data/movies.csv")
@@ -318,7 +315,7 @@ hist(
 		xlab = "Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-base-03.pdf}
+\includegraphics[height=6cm]{img/1-num-base-03.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 movies <- read.csv("data/movies.csv")
@@ -328,7 +325,7 @@ plot(
 		xlab = "Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-base-04.pdf}
+\includegraphics[height=6cm]{img/1-num-base-04.png}
 
 \subsection{lattice}
 \label{sec:orgheadline8}
@@ -343,7 +340,7 @@ bwplot(
 		xlab = "Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-lattice-02.pdf}
+\includegraphics[height=6cm]{img/1-num-lattice-02.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 movies <- read.csv("data/movies.csv")
@@ -355,7 +352,7 @@ histogram(
 		xlab = "Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-lattice-03.pdf}
+\includegraphics[height=6cm]{img/1-num-lattice-03.png}
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
 movies <- read.csv("data/movies.csv")
@@ -367,7 +364,7 @@ densityplot(
 		xlab = "Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-lattice-04.pdf}
+\includegraphics[height=6cm]{img/1-num-lattice-04.png}
 
 \subsection{ggplot2}
 \label{sec:orgheadline9}
@@ -385,7 +382,7 @@ ggplot(
 		xlab("Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-01.pdf}
+\includegraphics[height=6cm]{img/1-num-ggplot2-01.png}
 
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
@@ -404,7 +401,7 @@ ggplot(
 				axis.ticks.y = element_blank())
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-02.pdf}
+\includegraphics[height=6cm]{img/1-num-ggplot2-02.png}
 
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
@@ -418,7 +415,7 @@ ggplot(
 		xlab("Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-03.pdf}
+\includegraphics[height=6cm]{img/1-num-ggplot2-03.png}
 
 
 \begin{minted}[bgcolor=mintedbg,frame=none,framesep=0pt,mathescape=true,fontsize=\footnotesize,gobble=0]{r}
@@ -432,7 +429,7 @@ ggplot(
 		xlab("Runtime (minutes)")
 \end{minted}
 
-\includegraphics[width=.9\linewidth]{img/1-num-ggplot2-04.pdf}
+\includegraphics[height=6cm]{img/1-num-ggplot2-04.png}
 
 \section{Two Categorical Variables}
 \label{sec:orgheadline11}
