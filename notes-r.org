@@ -15,18 +15,15 @@
 
 * Packages
 
-* Visualization
+* Data
 
-** Data
-
-#+begin_src R :noweb-ref movies :exports none
+#+begin_src R :session a :noweb-ref movies :exports none
 movies <- read.csv("data/movies.csv")
 #+end_src
 
 #+RESULTS:
 
-#+begin_src R :noweb yes :colnames yes :exports both
-<<movies>>
+#+begin_src R :session a :noweb yes :colnames yes :exports both
 head(movies)
 #+end_src
 
@@ -41,13 +38,15 @@ head(movies)
 | Big Momma's House                | 2000 | PG-13  |      99 |           30 |        0.5 | TRUE   | TRUE          |
 | Gone in Sixty Seconds            | 2000 | PG-13  |     118 |           24 |        101 | TRUE   | FALSE         |
 
+* Simple Visualization
+
+
 ** One Categorical Variable
 
 *** base
 
-#+begin_src R :noweb yes :file img/1-cat-base-01.png :results output graphics :exports both
-<<movies>>
-plot(
+#+begin_src R :session a :noweb yes :file img/1-cat-base-01.png :results output graphics :exports both
+ocb1 <- plot(
   x = movies$Rating,
   main = "Count of Movies by Rating",
   xlab = "Rating",
@@ -59,9 +58,8 @@ plot(
 [[file:img/1-cat-base-01.png]]
 
 
-#+begin_src R :noweb yes :file img/1-cat-base-02.png :results output graphics :exports both
-<<movies>>
-dotchart(
+#+begin_src R :session a :noweb yes :file img/1-cat-base-02.png :results output graphics :exports both
+ocb2 <- dotchart(
   x = table(movies$Rating),
   pch = 16,
   main = "Count of Movies by Rating",
@@ -74,9 +72,8 @@ dotchart(
 [[file:img/1-cat-base-02.png]]
 
 
-#+begin_src R :noweb yes :file img/1-cat-base-03.png :results output graphics :exports both
-<<movies>>
-pie(
+#+begin_src R :session a :noweb yes :file img/1-cat-base-03.png :results output graphics :exports both
+ocb3 <- pie(
   x = table(movies$Awards),
   clockwise = TRUE,
   main = "Proportion of Movies that Won Awards")
@@ -86,20 +83,19 @@ pie(
 #+RESULTS[e3b67c717e56708301bfdfeb409fddf42a3f88df]:
 [[file:img/1-cat-base-03.png]]
 
+
 *** lattice
 
-#+begin_src R :noweb yes :noweb-ref ratings-l :exports none
+#+begin_src R :session a :noweb yes :noweb-ref ratings-l :exports none :results silent
 library(lattice)
 # Create frequency table of ratings
-<<movies>>
 table <- table(movies$Rating)
 ratings <- as.data.frame(table)
 names(ratings)[1] <- "Rating"
 names(ratings)[2] <- "Count"
 #+end_src
 
-#+begin_src R :noweb yes :colnames yes :exports both
-<<ratings-l>>
+#+begin_src R :session a :noweb yes :colnames yes :exports both
 print(ratings)
 #+end_src
 
@@ -112,90 +108,106 @@ print(ratings)
 | PG-13  |  1225 |
 | R      |  1423 |
 
-#+begin_src R :noweb yes :file img/1-cat-lattice-01.png :results output graphics :exports both
-<<ratings-l>>
-barchart(
+#+begin_src R :session a :noweb yes :file img/1-cat-lattice-01.png :results output graphics :exports both
+ocl1 <- barchart(
   x = Count ~ Rating,
   data = ratings,
   main = "Count of Movies by Rating",
   xlab = "Rating")
+print(ocl1)
 #+end_src
 
 #+attr_latex: :height 6cm
 #+RESULTS:
 [[file:img/1-cat-lattice-01.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-lattice-02.png :results output graphics :exports both
-<<ratings-l>>
-dotplot(
+#+begin_src R :session a :noweb yes :file img/1-cat-lattice-02.png :results output graphics :exports both
+ocl2 <- dotplot(
   x = Rating ~ Count,
   data = ratings,
   main = "Count of Movies by Rating",
   ylab = "Rating")
+print(ocl2)
 #+end_src
 
 #+attr_latex: :height 6cm
 #+RESULTS:
 [[file:img/1-cat-lattice-02.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-lattice-03.png :results output graphics :exports both
-<<ratings-l>>
-histogram(
+#+begin_src R :session a :noweb yes :file img/1-cat-lattice-03.png :results output graphics :exports both
+ocl3 <- histogram(
   x = ~Rating,
   data = movies,
   main = "Percent of Movies by Rating")
+print(ocl3)
 #+end_src
 
 #+attr_latex: :height 6cm
 #+RESULTS:
 [[file:img/1-cat-lattice-03.png]]
 
+
+#+begin_src R :session a :noweb yes :file img/1-cat-base-00.png :results output graphics :exports both
+print(ocl1, split = c(1, 1, 1, 3), more = TRUE)
+print(ocl2, split = c(1, 2, 1, 3), more = TRUE)
+print(ocl3, split = c(1, 3, 1, 3), more = FALSE)
+#+end_src
+
+#+RESULTS:
+[[file:img/1-cat-base-00.png]]
+
 *** ggplot2
 
-#+begin_src R :noweb yes :file img/1-cat-ggplot2-01.png :results output graphics :exports both
+#+begin_src R :session a :noweb yes :file img/1-cat-ggplot2-01.png :results output graphics :exports both
 library(ggplot2)
-<<movies>>
-ggplot(
+ocg1 <- ggplot(
     data = movies,
     aes(x = Rating)) +
     geom_bar() +
     ggtitle("Count of Movies by Rating")
+plot(ocg1)
 #+end_src
 
 #+Attr_latex: :height 6cm
 #+RESULTS:
 [[file:img/1-cat-ggplot2-01.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-ggplot2-02.png :results output graphics :exports both
-library(ggplot2)
-<<ratings-l>>
-ggplot(
+#+begin_src R :session a  :noweb yes :file img/1-cat-ggplot2-02.png :results output graphics :exports both
+ocg2 <- ggplot(
   data = ratings,
   aes(x = Rating, y = Count)) +
   geom_point() +
   coord_flip() +
   ggtitle("Count of Movies by Rating")
+plot(ocg2)
 #+end_src
 
 #+Attr_latex: :height 6cm
 #+RESULTS:
 [[file:img/1-cat-ggplot2-02.png]]
 
-#+begin_src R :noweb yes :file img/1-cat-ggplot2-03.png :results output graphics :exports both
-library(ggplot2)
-<<movies>>
-ggplot(
+#+begin_src R :session a :noweb yes :file img/1-cat-ggplot2-03.png :results output graphics :exports both
+ocg3 <- ggplot(
   data = movies,
   aes(x = "", fill = Awards)) +
   geom_bar() +
   coord_polar(theta = "y") +
   ggtitle("Proportion of Movies that Won Awards") +
   ylab("")
+plot(ocg3)
 #+end_src
 
 #+Attr_latex: :height 6cm
 #+RESULTS:
 [[file:img/1-cat-ggplot2-03.png]]
+
+#+begin_src R :session a :noweb yes :file img/1-cat-ggplot2-00.png :results output graphics :exports both
+require(gridExtra)
+grid.arrange(ocg1, ocg2, ocg3, nrow=3)
+#+end_src
+
+#+RESULTS:
+[[file:img/1-cat-ggplot2-00.png]]
 
 ** One Numeric Variable
 
@@ -378,4 +390,107 @@ ggplot(
 
 ** Both a Categorical and a Numeric Variable
 
-** Moving Beyond
+* Intermediate Visualization
+
+** Radar Plot
+
+#+Caption: Some Values
+#+Attr_Latex: :booktabs t :placement \footnotesize
+#+Name: table-radar
+| Category | Val1 | Val2 | Val3 |
+|----------+------+------+------|
+| A        |    2 |    3 |    4 |
+| B        |    2 |    2 |    2 |
+| C        |    4 |    1 |    2 |
+| D        |    3 |    1 |    3 |
+| E        |    3 |    2 |    2 |
+| F        |    2 |    4 |    3 |
+
+#+Name: test
+#+begin_src R :session a :colnames yes :var x=table-radar :exports none
+print(x)
+#+end_src
+
+#+Attr_Latex: :booktabs t :placement \footnotesize
+#+RESULTS: test
+| Category | Val1 | Val2 | Val3 |
+|----------+------+------+------|
+| A        |    2 |    3 |    4 |
+| B        |    2 |    2 |    2 |
+| C        |    4 |    1 |    2 |
+| D        |    3 |    1 |    3 |
+| E        |    3 |    2 |    2 |
+| F        |    2 |    4 |    3 |
+
+#+Name: gather
+#+begin_src R :session a :colnames yes :var bd=table-radar :exports none
+library(tidyr)
+library(dplyr)
+xs <- gather(x, V, H, 2:4)
+print(xs)
+#+end_src
+
+#+Attr_Latex: :booktabs t :placement \footnotesize
+#+RESULTS: gather
+| Category | V    | H |
+|----------+------+---|
+| A        | Val1 | 2 |
+| B        | Val1 | 2 |
+| C        | Val1 | 4 |
+| D        | Val1 | 3 |
+| E        | Val1 | 3 |
+| F        | Val1 | 2 |
+| A        | Val2 | 3 |
+| B        | Val2 | 2 |
+| C        | Val2 | 1 |
+| D        | Val2 | 1 |
+| E        | Val2 | 2 |
+| F        | Val2 | 4 |
+| A        | Val3 | 4 |
+| B        | Val3 | 2 |
+| C        | Val3 | 2 |
+| D        | Val3 | 3 |
+| E        | Val3 | 2 |
+| F        | Val3 | 3 |
+
+#+begin_src R :session a :noweb-ref radar :exports code :results silent
+coord_radar <- function (theta = "x", start = 0, direction = 1)
+{
+    theta <- match.arg(theta, c("x", "y"))
+    r <- if (theta == "x")
+        "y"
+    else "x"
+    ggproto("CordRadar", CoordPolar, theta = theta, r = r, start = start,
+        direction = sign(direction),
+        is_linear = function(coord) TRUE)
+}
+#+end_src
+
+
+#+begin_src R :session a :file img/radar-01.png :results output graphics :exports both :noweb no-export
+ggplot(xs, aes(x=V, y=H, color=Category, group=Category, fill=Category)) +
+geom_polygon(alpha=.1) +
+coord_radar() +
+ggtitle("Radar Plot") +
+xlab("V*") + ylab("Hight")
+#+end_src
+
+#+RESULTS:
+[[file:img/radar-01.png]]
+
+* Advanced Visualization
+
+
+
+* Quellen
+
+** General
+
+- http://www.cookbook-r.com/
+- http://www.datendesign-r.de/beispiele/
+- https://www.rstudio.com/resources/cheatsheets/
+
+
+** Special
+
+- http://stackoverflow.com/questions/22064611/how-to-draw-rotated-axes-in-r
